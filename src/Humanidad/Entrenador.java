@@ -47,29 +47,45 @@ public class Entrenador extends Persona {
         this(0, 0, "", '\0', "", "");
     }
     
-    public void determinarRutina(int grasaCorpo) {
+    public String determinarRutina(int grasaCorpo) {
+        String ejercicio = "";
         switch(grasaCorpo) {
             default:
                 System.out.println("No hay ejercicio para ti hoy");
                 break;
         }
+        
+        return ejercicio;
     }
     
-    public void determinarRutina(String tipoEjer) {
+    public String determinarRutina(String tipoEjer) {
+        String ejercicio = "";
         tipoEjer = tipoEjer.toLowerCase();
         switch(tipoEjer) {
             case "tonificacion":
                 System.out.println("Deberias hacer pesas y barras hoy");
+                ejercicio = "pesas";
                 break;
             case "reduccion":
                 System.out.println("Con un poco de spinning y cardio vas bien");
+                ejercicio = "sipinnig";
                 break;
-            case "":
+            case "cardio":
+                break;
+            case "barras":
+                System.out.println("Puedes hacer pesas hoy");
+                ejercicio = "pesas";
+                break;
+            case "sipinnig":
+                System.out.println("Intentemos un poco de cardio");
+                ejercicio = "cardio";
                 break;
             default:
                 System.out.println("No hay objetivos definidos para hoy");
                 break;
         }
+        
+        return ejercicio;
     }
     
     @Override

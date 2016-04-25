@@ -277,8 +277,23 @@ public class ClasesyObjetos {
                         d.setFrecuenciaEnt(ent.next().charAt(0));
                         break;
                     case 10:
-                        System.out.print("Tipo de ejercicio: ");
-                        d.setTipoDeEjercicio(ent.nextLine());
+                        String nuevoTipo;
+                        if(d.getEntrenador() == null) {
+                            System.out.println("Recuerda que para un entrenamiento optimo, debes seleccionar a un entrenador que te guie");
+                            System.out.print("Tipo de ejercicio: ");
+                            nuevoTipo = ent.nextLine();
+                        } else {
+                            int determinar;
+                            System.out.println("1. Definir ejercicio segun tu grasa\n2. Seleccionar ejercicios similares\n\nOpcion: ");
+                            determinar = ent.nextInt();
+                            System.out.println(d.getEntrenador().getNombre() + " dice:");
+                            if(determinar == 1) {
+                                nuevoTipo = d.getEntrenador().determinarRutina((int)d.calcularImc());
+                            } else {
+                                nuevoTipo = d.getEntrenador().determinarRutina(d.getTipoDeEjercicio());
+                            }
+                        }
+                        d.setTipoDeEjercicio(nuevoTipo);
                         break;
                     case 11:
                         System.out.println("Seleccionar un entrenador de la lista:");
