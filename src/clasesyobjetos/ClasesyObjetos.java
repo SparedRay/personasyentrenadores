@@ -14,6 +14,8 @@ import java.util.concurrent.CountDownLatch;
  * @author Martinor
  */
 public class ClasesyObjetos {
+    static ArrayList<Persona> entrenadores;
+    static ArrayList<Persona> deportistas;
     
     /**
      * @param args the command line arguments
@@ -22,8 +24,6 @@ public class ClasesyObjetos {
         Scanner ent = new Scanner( System.in );
         CountDownLatch latch = new CountDownLatch(2);
         Bconnector connector;
-        ArrayList<Persona> entrenadores;
-        ArrayList<Persona> deportistas;
         
         connector = new Bconnector("https://blistering-heat-7556.firebaseio.com", latch);
         entrenadores = connector.getData("Entrenadores"); //new ArrayList<>();
@@ -51,12 +51,9 @@ public class ClasesyObjetos {
                     break;
                 case 2:
                     System.out.println();
-                    for(Persona p : entrenadores) {
-                        p.imprimirDatosPer();
-                    }
-                    for(Persona p : deportistas) {
-                        p.imprimirDatosPer();
-                    }
+                    mostrarPersonas(entrenadores);
+                    System.out.println();
+                    mostrarPersonas(deportistas);
                     break;
                 case 3:
                     editarPersonas(entrenadores);
@@ -84,6 +81,14 @@ public class ClasesyObjetos {
             }
         } while(opcion != 0);
         
+    }
+    
+    public static void mostrarPersonas(ArrayList<Persona> personas) {
+        int i = 0;
+        for(Persona p : personas) {
+            System.out.println("|********* " + i++ + "********|");
+            p.imprimirDatosPer();
+        }
     }
     
     public static Persona crearPersona() {
@@ -169,11 +174,8 @@ public class ClasesyObjetos {
     
     public static void editarPersonas(ArrayList<Persona> personas) {
         Scanner ent = new Scanner(System.in);
-        int i = 0, opcion;
-        for(Persona p : personas) {
-            System.out.println("|********* " + i++ + "********|");
-            p.imprimirDatosPer();
-        }
+        int opcion;
+        mostrarPersonas(personas);
         System.out.print("\nOpcion: ");
         opcion = ent.nextInt();
         
@@ -205,7 +207,7 @@ public class ClasesyObjetos {
             if(Entrenador.class.isInstance(p)) {
                 System.out.println("8. Cambiar experiencia\n9. Cambiar especialidad");
             } else if(Deportista.class.isInstance(p)) {
-                System.out.println("8. Cambiar ritmo cardiaco\n9. Cambiar frecuencia de entrenamiento\n10. Cambiar tipo de ejercicio");
+                System.out.println("8. Cambiar ritmo cardiaco\n9. Cambiar frecuencia de entrenamiento\n10. Cambiar tipo de ejercicio\n11. Asignar entrenador");
             }
 
             System.out.print("0. Salir\n\nOpcion: ");
@@ -277,6 +279,14 @@ public class ClasesyObjetos {
                     case 10:
                         System.out.print("Tipo de ejercicio: ");
                         d.setTipoDeEjercicio(ent.nextLine());
+                        break;
+                    case 11:
+                        System.out.println("Seleccionar un entrenador de la lista:");
+                        int entrenador;
+                        mostrarPersonas(entrenadores);
+                        System.out.print("Opcion: ");
+                        entrenador = ent.nextInt();
+                        d.setEntrenador(entrenadores.get(entrenador));
                         break;
                 }
             }

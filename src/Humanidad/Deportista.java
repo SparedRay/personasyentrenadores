@@ -13,6 +13,15 @@ public class Deportista extends Persona {
     private int ritmoCardiaco;
     private char frecuenciaEnt;
     private String tipoDeEjercicio;
+    private Entrenador entrenador;
+    
+    public Entrenador getEntrenador() {
+        return this.entrenador;
+    }
+    
+    public void setEntrenador(Persona e) {
+        this.entrenador = (Entrenador)e;
+    }
 
     public int getRitmoCardiaco() {
         return ritmoCardiaco;
@@ -87,6 +96,12 @@ public class Deportista extends Persona {
     @Override
     public void imprimirDatosPer() {
         System.out.println("Puesto: Deportista");
+        if(null != this.entrenador) {
+            System.out.println("Entrenador asignado: " + this.entrenador.getNombre());
+        }
+        System.out.println("Ritmo cardiaco: " + getRitmoCardiaco());
+        System.out.println("Tipo de ejercicio actual: " + getTipoDeEjercicio());
+        System.out.println("Frecuencia de entrenamiento: " + (getFrecuenciaEnt() == 'D' ? "Diario" : "Semanal"));
         super.imprimirDatosPer();
     }
 }
